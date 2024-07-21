@@ -1,0 +1,67 @@
+.div-6 {
+	align-items: start;
+	background-color: var(--gray-50, #f2f4f5);
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: center;
+	padding: 26px 60px;
+}
+@media (max-width: 991px) {
+	.div-6 {
+		max-width: 100%;
+		padding: 0 20px;
+	}
+}
+.breadCrumbs {
+	text-decoration: none;
+	color: #5f6c72;
+}
+.div-21 {
+	align-items: flex-start;
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	padding: 10px 39px 16px 0;
+}
+@media (max-width: 991px) {
+	.div-21 {
+		max-width: 100%;
+		margin-top: 24px;
+		padding-right: 20px;
+	}
+}
+.div-22 {
+	color: #000;
+	align-self: stretch;
+	white-space: nowrap;
+	font: 500 32px/40px Public Sans, -apple-system, Roboto, Helvetica, sans-serif;
+}
+@media (max-width: 991px) {
+	.div-22 {
+		max-width: 100%;
+		white-space: initial;
+	}
+}
+.div-23 {
+	background-color: #fff;
+	align-self: stretch;
+	display: flex;
+	margin-top: 5px;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 0px 10px 0px;
+}
+@media (max-width: 991px) {
+	.div-23 {
+		max-width: 100%;
+		flex-wrap: wrap;
+	}
+}
+.div-23 > .btn-outline-secondary {
+	--bs-btn-color: #fa8232;
+}
+.searchBarTable {
+	width: 40% !important;
+}

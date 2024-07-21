@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1, width=device-width" />
+		<title>Librarian - Books Management</title>
+		<link rel="icon" type="image/x-icon" href="/public/assets/icon1.svg" />
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Public Sans:wght@400;500;600;700&display=swap"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+			rel="stylesheet"
+		/>
+
+		<link rel="stylesheet" href="/public/css/staff_global.css" />
+		<link rel="stylesheet" href="/public/css/ModifyBooks.css" />
+
+		<script src="https://kit.fontawesome.com/090ced38b4.js" crossorigin="anonymous"></script>
+		<script
+			src="https://code.jquery.com/jquery-3.7.1.min.js"
+			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	</head>
+	<body class="overflow-x-hidden">
+		<%- include('./components/staff_header.ejs') %>
+		<div class="bg-secondary-subtle">
+			<div class="container-xxl py-4 d-flex align-items-center gap-2">
+				<a href="/admin/books">
+					<i class="fa-solid fa-house text-secondary"></i>
+				</a>
+				<a class="text-decoration-none text-secondary" href="/admin/books">Home</a>
+				<i class="fa-solid fa-chevron-right text-secondary"></i>
+				<a class="text-decoration-none text-secondary" href="/admin/books"> Book Management </a>
+				<i class="fa-solid fa-chevron-right text-secondary"></i>
+				<div class="text-secondary">Book Details</div>
+			</div>
+		</div>
+		<div class="container-xxl py-5">
+			<div class="row">
+				<nav class="col-3"><%- include('./components/staff_navbar.ejs') %></nav>
+				<form id="<%- book ? 'edit-book-form' : 'add-book-form' %>" class="col-9">
+					<div class="row">
+						<div class="col-8">
+							<h3>
+								<%- book ? `Edit Book Detail: #${book.id} - ${book.title}` : 'Add new book' %>
+							</h3>
+
+							<div class="py-2 w-100 overflow-hidden">
+								<label class="form-label" for="name-input">Book Name</label>
+								<input
+									class="form-control input-field"
+									type="text"
+									id="name-input"
+									name="name"
+									value="<%- book ? book.title : '' %>"
+								/>
+							</div>
+
+							<div class="py-2 w-100 overflow-hidden">
+								<label class="form-label">ISBN</label>
+								<input
+									class="form-control input-field"
+									type="text"
+									id="isbn-input"
+									name="isbn"
+									value="<%- book ? book.isbn : '' %>"
+								/>
+							</div>
+
+							<div class="py-2 w-100 overflow-hidden">
+								<label for="author-multi-select" class="form-label">Author</label>
+								<select
+									class="input-field form-control"
+									id="author-multi-select"
+									name="authorIds"
+									multiple="multiple"
+									data-values="<%- book ? book.authors.map((a) => a.id).join(',') : '' %>"
+								>
+									<% if (book?.authors?.length > 0) { book.authors.forEach(function (author) { %>
+									<option value="<%= author.id %>" selected><%= author.name %></option>
+									<% }) } %>
+								</select>
+							</div>
+
+							<h5 class="py-3">Product details</h5>
+
+							<div class="py-2 w-100 overflow-hidden">
+								<label class="form-label" for="publication-date-input">Publication date</label>
+								<input
+									class="form-control input-field"
+									type="date"
+									id="publication-date-input"
+									name="pdate"
+									value="<%- book ? new Date(book.publishedDate).toISOString().split('T')[0] : '' %>"
+								/>
+							</div>
+
+							<div class="py-2 w-100 overflow-hidden">
+								<label for="genre-multi-select" class="form-label">Genre</label>
+								<select
+									id="genre-multi-select"
+									class="input-field form-control"
+									name="genreIds"
+									multiple="multiple"
+								>
+									<% if (book?.genres?.length > 0) { book.genres.forEach(function (genre) { %>
+									<option value="<%= genre.id %>" selected><%= genre.name %></option>
+									<% }) } %>
+								</select>
+							</div>
+
+							<div class="py-2 w-100 overflow-hidden">
+								<label class="form-label" for="resource-type-select">Resource type</label>
+								<select id="resource-type-select" class="input-field" name="rtypeid">
+									<% if (book?.type?.id) { %>
+									<option value="<%= book.type.id %>" selected><%= book.type.name %></option>
+									<% } %>
+								</select>
+							</div>
+
+							<div class="py-2 w-100 overflow-hidden">
+								<label class="form-label" for="publisher-select">Publisher</label>
+								<select id="publisher-select" class="input-field" name="pid">
+									<% if (book?.publisher?.id) { %>
+									<option value="<%= book.publisher.id %>" selected>
+										<%= book.publisher.name %>
+									</option>
+									<% } %>
+								</select>
+							</div>
+
+							<div class="py-2 w-100 overflow-hidden">
+								<label class="form-label" for="description-input">Book Description</label>
+								<textarea id="description-input" class="form-control" name="description" rows="3">
+<%- book ? book.description : '' %></textarea
+								>
+							</div>
+						</div>
+
+						<div class="col-4">
+							<h5>Book Cover</h5>
+							<div class="w-100">
+								<img class="object-fit-contain w-100" alt="" src="/public/assets/image@2x.png" />
+							</div>
+							<div class="button3">
+								<b class="label1">Upload</b>
+								<i class="fa-solid fa-arrow-right"></i>
+							</div>
+						</div>
+
+						<div class="col-12">
+							<div class="button1">
+								<a href="/admin/books" class="button2">
+									<b class="label1">Discard change</b>
+								</a>
+								<button type="submit" class="button3">
+									<b class="label1">Save changes</b>
+									<i class="fa-solid fa-arrow-right"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<script src="/public/js/editBookDetail.js"></script>
+	</body>
+</html>

@@ -1,0 +1,106 @@
+<header>
+	<div class="container-xxl d-flex justify-content-between py-3">
+		<div class="welcome-to-clicon text-light">Welcome to TIMR online library</div>
+		<div class="left-content">
+			<div class="follow-us d-flex gap-3">
+				<p class="text-light">Follow us:</p>
+				<nav class="d-flex gap-3">
+					<a href="#">
+						<i class="fa-brands fa-twitter" style="color: #ffffff"></i>
+					</a>
+					<a href="#">
+						<i class="fa-brands fa-facebook" style="color: #ffffff"></i>
+					</a>
+					<a href="#">
+						<i class="fa-brands fa-instagram" style="color: #ffffff"></i>
+					</a>
+					<a href="#">
+						<i class="fa-brands fa-pinterest-p" style="color: #ffffff"></i>
+					</a>
+					<a href="#">
+						<i class="fa-brands fa-reddit" style="color: #ffffff"></i>
+					</a>
+				</nav>
+			</div>
+		</div>
+	</div>
+
+	<hr />
+
+	<div class="container-xxl d-flex justify-content-between gap-4 py-3">
+		<a href="/" class="d-flex text-decoration-none gap-2 align-items-center">
+			<img width="48px" height="48px" alt="" src="/public/assets/icon.svg" />
+			<h1 class="text-light fw-bold">TIMR</h1>
+		</a>
+
+		<form id="header-search-form" class="input-group">
+			<input class="form-control" type="text" placeholder="Search Library collections..." />
+			<button type="submit" class="input-group-text">
+				<i class="fa-solid fa-magnifying-glass"></i>
+			</button>
+		</form>
+
+		<div class="d-flex gap-3 align-items-center">
+			<% if (user) { %>
+			<a href="/favourites" class="rounded text-decoration-none p-2">
+				<i class="fa-regular fa-heart fa-xl" style="color: #ffffff"></i>
+			</a>
+			<div class="dropdown">
+				<button
+					id="user-dropdown"
+					class="rounded p-2 my-auto fa-xl dropdown-toggle"
+					data-bs-toggle="dropdown"
+					aria-expanded="false"
+				>
+					<i class="fa-regular fa-user mt-1" style="color: #ffffff"></i>
+				</button>
+				<ul class="dropdown-menu">
+					<li><button id="signout" class="dropdown-item">Sign out</button></li>
+				</ul>
+			</div>
+			<% } else { %>
+			<a href="/signin" class="rounded text-decoration-none p-2">
+				<i class="fa-regular fa-user" style="color: #ffffff"></i>
+			</a>
+			<% } %>
+		</div>
+	</div>
+</header>
+
+<div class="vw-100 bg-light">
+	<div class="container-xxl d-flex justify-content-between py-3">
+		<div>
+			<!-- <div class="button">
+        <div class="all-category">All Category</div>
+        <select class="regularcaretdown"></select>
+      </div> TODO: Dropdown category -->
+		</div>
+		<div class="d-flex gap-2 text-dark align-items-center">
+			<i class="fa-solid fa-phone-volume fa-xl"></i>
+			<a href="tel:+84987654321" class="fs-6 text-dark text-decoration-none">+84-987-654-321</a>
+		</div>
+	</div>
+</div>
+
+<script>
+	const signout = document.getElementById('signout');
+	signout?.addEventListener('click', async () => {
+		try {
+			const response = await fetch('/api/reader/auth/signout', { method: 'POST' });
+			if (response.status === 200) {
+				window.location.href = '/';
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	});
+
+	const headerSearchForm = document.getElementById('header-search-form');
+	headerSearchForm.addEventListener('submit', (event) => {
+		event.preventDefault();
+		const searchInput = headerSearchForm.querySelector('input');
+		const searchParams = new URLSearchParams();
+		searchParams.append('q', searchInput.value);
+		window.location.href = `/books?${searchParams.toString()}`;
+	});
+</script>

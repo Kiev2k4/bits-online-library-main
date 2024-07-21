@@ -1,0 +1,106 @@
+:root {
+	/* fonts */
+	--body-large-500: 'Public Sans';
+
+	/* font sizes */
+	--font-size-13xl: 32px;
+	--heading-07-size: 14px;
+	--heading-06-size: 16px;
+	--body-large-500-size: 18px;
+
+	/* Colors */
+	--secondary-700: #1b6392;
+	--gray-00: #fff;
+	--primary-500: #fa8232;
+	--primary-100: #ffe7d6;
+	--gray-100: #e4e7e9;
+	--gray-900: #191c1f;
+	--gray-400: #929fa5;
+	--gray-500: #77878f;
+	--gray-600: #5f6c72;
+	--gray-50: #f2f4f5;
+	--secondary-500: #2da5f3;
+
+	/* Gaps */
+	--gap-5xs: 8px;
+	--gap-xs: 12px;
+	--gap-5xl: 24px;
+	--gap-base: 16px;
+
+	/* Paddings */
+	--padding-xl: 20px;
+	--padding-281xl: 300px;
+	--padding-5xl: 24px;
+	--padding-13xl: 32px;
+	--padding-base: 16px;
+
+	/* Border radiuses */
+	--br-11xs: 2px;
+	--br-9xs: 4px;
+	--br-10xs: 3px;
+}
+.input-field {
+	display: block;
+	width: 100% !important;
+	padding: 0.375rem;
+	height: calc(0.75rem + 28px) !important;
+	border-radius: 0.375rem !important;
+	border: 1px solid #dee2e6 !important;
+}
+.label1 {
+	position: relative;
+	letter-spacing: 0.01em;
+	line-height: 48px;
+	text-transform: uppercase;
+}
+.button2 {
+	border-radius: var(--br-11xs);
+	border: 2px solid var(--primary-100);
+	align-items: center;
+	justify-content: center;
+	padding: 0 var(--padding-5xl);
+	gap: var(--gap-5xs);
+	text-decoration: none;
+	color: black;
+	background-color: #e2e3e5;
+}
+.button1,
+.button2,
+.button3 {
+	display: flex;
+	flex-direction: row;
+}
+.button3 {
+	border-color: transparent;
+	display: flex;
+	flex-direction: row;
+	border-radius: var(--br-11xs);
+	background-color: var(--primary-500);
+	align-items: center;
+	justify-content: center;
+	padding: 0 var(--padding-5xl);
+	gap: var(--gap-5xs);
+}
+
+.button3 button {
+	background-color: transparent;
+	border: none;
+	cursor: pointer; /* Add a pointer cursor to indicate the button is clickable */
+}
+
+.label1 {
+	position: relative;
+	letter-spacing: 0.01em;
+	line-height: 48px;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: white;
+	/* color: /* Your chosen text color for contrast, e.g., black or another contrasting color */
+}
+
+.button1 {
+	align-items: flex-start;
+	justify-content: flex-start;
+	gap: var(--gap-xs);
+	margin-top: 10px;
+}

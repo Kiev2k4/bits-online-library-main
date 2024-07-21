@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1, width=device-width" />
+		<title><%= book.title %> - TIMR</title>
+		<link rel="icon" type="image/x-icon" href="/public/assets/icon1.svg" />
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://kit.fontawesome.com/090ced38b4.js" crossorigin="anonymous"></script>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Public Sans:wght@400;500;600;700&display=swap"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+		/>
+		<link rel="stylesheet" href="/public/css/global.css" />
+		<style>
+			.nav {
+				--bs-nav-link-color: #000;
+				--bs-nav-link-hover-color: #000;
+				--bs-nav-link-padding-y: 0.75rem;
+				--bs-nav-link-padding-x: 0.5rem;
+			}
+			.nav-underline {
+				--bs-nav-underline-link-active-color: #fa8232;
+			}
+
+			.favorite-button {
+				height: 24px;
+			}
+			.favorite-button > i.fa-solid {
+				display: none;
+			}
+			.favorite-button > i.fa-regular {
+				display: block;
+			}
+			.favorite-button.favorite > i.fa-solid {
+				display: block;
+			}
+			.favorite-button.favorite > i.fa-regular {
+				display: none;
+			}
+
+			.new-book-title {
+				overflow: hidden;
+				display: -webkit-box;
+				-webkit-line-clamp: 3; /* number of lines to show */
+				line-clamp: 3;
+				-webkit-box-orient: vertical;
+			}
+		</style>
+	</head>
+
+	<body>
+		<%- include('./components/header.ejs', { user }) %>
+
+		<div class="bg-secondary-subtle py-3">
+			<div class="container-xxl d-flex py-2 align-items-center gap-2">
+				<a href="/"><i class="fa-solid fa-house text-secondary"></i></a>
+				<a href="/" class="text-decoration-none text-secondary">
+					<div class="welcome-to-clicon6">Home</div>
+				</a>
+				<i class="fa-solid fa-chevron-right text-secondary"></i>
+				<div class="text-secondary"><%= book.title %></div>
+			</div>
+		</div>
+		<div class="container-xxl py-5">
+			<div class="row">
+				<div class="col-3">
+					<div id="book-images-slide" class="carousel slide">
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<img
+									class="object-fit-contain w-100"
+									src="/public/assets/main-image@2x.png"
+									alt="Book 1"
+								/>
+							</div>
+							<div class="carousel-item">
+								<img class="object-fit-contain w-100" src="/public/assets/book2.jpg" alt="Book 2" />
+							</div>
+						</div>
+						<button
+							class="carousel-control-prev"
+							type="button"
+							data-bs-target="#book-images-slide"
+							data-bs-slide="prev"
+						>
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button
+							class="carousel-control-next"
+							type="button"
+							data-bs-target="#book-images-slide"
+							data-bs-slide="next"
+						>
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div>
+				</div>
+				<div class="col-9">
+					<div class="d-flex justify-content-between">
+						<div>
+							<h4><%= book.title %></h4>
+							<div class="badge bg-success mb-2"><%= book.type.name %></div>
+							<p class="mb-1">
+								Published Date: <%= new Date(book.publishedDate).toLocaleDateString() %>
+							</p>
+							<p class="mb-1">
+								Author: <% book.authors.forEach(function (author) { %>
+								<a
+									class="text-decoration-none"
+									style="color: #fa8232"
+									href="/books?q=<%= encodeURIComponent(author.name) %>"
+								>
+									<%= author.name %>
+								</a>
+								<% }) %>
+							</p>
+							<p class="mb-1">
+								<span>Category: </span>
+								<% book.genres.forEach(function (genre) { %>
+								<a
+									class="d-inline-block text-decoration-none me-1"
+									style="color: #fa8232"
+									href="/books?subjects=<%= genre.id %>"
+								>
+									<%= genre.name %>
+								</a>
+								<% }) %>
+							</p>
+						</div>
+						<div>
+							<% if (user) { %>
+							<button
+								type="button"
+								class="favorite-button <%- book.bookmarkId ? 'favorite' : '' %>"
+								data-book-id="<%= book.id %>"
+								data-bookmark-id="<%= book.bookmarkId %>"
+							>
+								<i class="fa-solid fa-heart fa-lg" style="color: #ff4dde"></i>
+								<i class="fa-regular fa-heart fa-lg"></i>
+							</button>
+							<% } %>
+						</div>
+					</div>
+					<hr />
+					<div class="content55">
+						<div class="follow-us12">
+							<div class="welcome-to-clicon6">Share product:</div>
+							<div class="follow-us12">
+								<i class="fa-brands fa-facebook"></i>
+								<i class="fa-brands fa-twitter"></i>
+								<i class="fa-brands fa-pinterest"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="py-5">
+				<ul class="nav nav-underline" id="book-tab-navs" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button
+							id="book-description-tab"
+							class="nav-link active"
+							data-bs-toggle="tab"
+							data-bs-target="#description-tab-pane"
+							type="button"
+							role="tab"
+							aria-controls="descriptiono-tab-pane"
+							aria-selected="true"
+						>
+							Description
+						</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button
+							id="book-additional-info-tab"
+							class="nav-link"
+							data-bs-toggle="tab"
+							data-bs-target="#additional-info-tab-pane"
+							type="button"
+							role="tab"
+							aria-controls="additional-info-tab-pane"
+							aria-selected="false"
+						>
+							Additional information
+						</button>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div
+						class="tab-pane fade show active p-3"
+						id="description-tab-pane"
+						role="tabpanel"
+						aria-labelledby="book-description-tab"
+						tabindex="0"
+					>
+						<p><%= book.description %></p>
+					</div>
+					<div
+						class="tab-pane fade px-3"
+						id="additional-info-tab-pane"
+						role="tabpanel"
+						aria-labelledby="book-additional-info-tab"
+						tabindex="0"
+					>
+						<h5 class="mt-3">Author Information:</h5>
+						<% book.authors.forEach(function(author) { %>
+						<p class="mt-2">
+							<div class="mt-1">Name: <%= author.name %></div>
+							<div class="mt-1">
+								Birth Date: <%= new Date(author.birthDate).toLocaleDateString() %>
+							</div>
+							<div class="mt-1">Nationality: <%= author.nationality %></div>
+						</p>
+						<% }) %>
+						<h5 class="mt-4">Publisher Information:</h5>
+						<p>
+							<div class="mt-1">Name: <%= book.publisher.name %></div>
+							<div class="mt-1">Address: <%= book.publisher.address %></div>
+							<div class="mt-1">Contact: <%= book.publisher.contact %></div>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<h5 class="mb-2">NEW BOOKS</h5>
+				<div class="row gx-4">
+					<% newBooks.forEach(function(newbook){ %>
+					<div class="col-3">
+						<a
+							href="/books/<%= newbook.id %>"
+							style="color: #1b6392"
+							class="d-flex p-3 border text-decoration-none gap-2 align-items-stretch"
+						>
+							<img
+								class="w-25 object-fit-contain"
+								alt="<%= newbook.title %>"
+								src="/public/assets/main-image1@2x.png"
+							/>
+							<div class="d-flex flex-column justify-content-center">
+								<div class="fs-5 new-book-title"><%= newbook.title %></div>
+								<div class="fs-6"><%= newbook.authors %></div>
+							</div>
+						</a>
+					</div>
+					<% }) %>
+				</div>
+			</div>
+		</div>
+		<%- include('./components/footer.ejs'); %>
+
+		<script>
+			const id = location.pathname.split('/').pop();
+			const button = document.getElementById('heart');
+			button?.addEventListener('click', () => {
+				fetch('/api/reader/bookmark', {
+					method: 'POST',
+					body: JSON.stringify({ bookId: id }),
+				}).then(() => location.reload());
+			});
+
+			const favortiteButton = document.querySelector('button.favorite-button');
+			favortiteButton.addEventListener('click', async function (e) {
+				e.stopPropagation();
+				e.preventDefault();
+				const isFavorite = this.classList.contains('favorite');
+
+				try {
+					if (isFavorite) {
+						const bookmarkId = this.dataset.bookmarkId;
+						await fetch(`/api/reader/bookmark/${bookmarkId}`, { method: 'DELETE' });
+						this.dataset.bookmarkId = '';
+						this.classList.remove('favorite');
+					} else {
+						const result = await fetch(`/api/reader/bookmark`, {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({ bookId: this.dataset.bookId }),
+						}).then((res) => res.json());
+						this.dataset.bookmarkId = result.bookmarkId;
+						this.classList.add('favorite');
+					}
+				} catch (err) {
+					console.error('Failed to update favorite:', err);
+				}
+			});
+		</script>
+	</body>
+</html>

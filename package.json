@@ -1,0 +1,35 @@
+{
+	"name": "bits-online-library",
+	"version": "1.0.0",
+	"description": "RMIT COSC2634 Building IT System - Group project - Online library web application",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/NamNguyen2710/bits-online-library"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/NamNguyen2710/bits-online-library/issues"
+	},
+	"homepage": "https://github.com/NamNguyen2710/bits-online-library#readme",
+	"devDependencies": {
+		"nodemon": "^3.0.1"
+	},
+	"dependencies": {
+		"bcrypt": "^5.1.1",
+		"cookie-parser": "^1.4.6",
+		"cors": "^2.8.5",
+		"dotenv": "^16.3.1",
+		"ejs": "^3.1.9",
+		"express": "^4.18.2",
+		"helmet": "^7.0.0",
+		"jsonwebtoken": "^9.0.2",
+		"mysql2": "^3.6.5"
+	}
+}

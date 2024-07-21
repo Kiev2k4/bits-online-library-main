@@ -1,0 +1,14 @@
+.newsletter {
+	background-color: #1b6392;
+}
+.newsletter form {
+	max-width: 600px;
+}
+
+.card-text {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* number of lines to show */
+	line-clamp: 3;
+	-webkit-box-orient: vertical;
+}

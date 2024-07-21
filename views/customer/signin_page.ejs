@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1, width=device-width" />
+		<title>Sign In - TIMR</title>
+		<link rel="icon" type="image/x-icon" href="/public/assets/icon1.svg" />
+
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Public Sans:wght@400;500;600;700&display=swap"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://kit.fontawesome.com/090ced38b4.js" crossorigin="anonymous"></script>
+
+		<link rel="stylesheet" href="/public/css/global.css" />
+		<link rel="stylesheet" href="/public/css/sign-in.css" />
+	</head>
+
+	<body>
+		<%- include('./components/header.ejs', { user }) %>
+
+		<div class="bg-secondary-subtle">
+			<div class="container-xxl d-flex py-4 align-items-center gap-2">
+				<a href="/" class="text-decoration-none text-secondary d-flex gap-2">
+					<i class="fa-solid fa-house"></i>
+					<div>Home</div>
+				</a>
+				<i class="fa-solid fa-chevron-right text-secondary"></i>
+				<div class="text-secondary">Sign In</div>
+			</div>
+		</div>
+
+		<div class="container-xxl py-5 d-flex justify-content-center">
+			<div class="form-container border shadow">
+				<ul class="nav nav-underline d-flex" id="signin-signup-tabs" role="tablist">
+					<li class="nav-item flex-grow-1" role="presentation">
+						<button
+							id="signin-tab"
+							class="nav-link active w-100"
+							data-bs-toggle="tab"
+							data-bs-target="#signin-tab-pane"
+							type="button"
+							role="tab"
+							aria-controls="signin-tab-pane"
+							aria-selected="true"
+						>
+							Sign In
+						</button>
+					</li>
+					<li class="nav-item flex-grow-1" role="presentation">
+						<button
+							id="signup-tab"
+							class="nav-link w-100"
+							data-bs-toggle="tab"
+							data-bs-target="#signup-tab-pane"
+							type="button"
+							role="tab"
+							aria-controls="signup-tab-pane"
+							aria-selected="false"
+						>
+							Sign Up
+						</button>
+					</li>
+				</ul>
+				<div id="signin-signup-tab-contents" class="tab-content">
+					<div id="signin-tab-pane" class="tab-pane fade show active">
+						<form id="signin-form" class="p-4 d-flex flex-column gap-3">
+							<div>
+								<label for="signin-username" class="form-label">Username</label>
+								<input
+									id="signin-username"
+									class="form-control p-3"
+									type="text"
+									name="username"
+									placeholder="Enter your Username"
+								/>
+							</div>
+							<div>
+								<label for="signin-password" class="form-label">Password</label>
+								<div class="input-group">
+									<input
+										id="signin-password"
+										class="form-control p-3"
+										type="password"
+										name="password"
+										placeholder="Enter your Password"
+									/>
+									<button
+										type="button"
+										class="input-group-text"
+										onclick="togglePasswordVisibility('signin-password')"
+									>
+										<i class="fa-regular fa-eye"></i>
+									</button>
+								</div>
+							</div>
+							<p id="signin-error" class="text-danger"></p>
+							<button class="btn text-uppercase py-3">Sign in</button>
+						</form>
+					</div>
+					<div id="signup-tab-pane" class="tab-pane fade">
+						<form id="signup-form" class="p-4 d-flex flex-column gap-3">
+							<div>
+								<label for="signup-fullname" class="form-label">Fullname</label>
+								<input
+									id="signup-fullname"
+									name="signup-fullname"
+									class="form-control p-3"
+									type="text"
+									placeholder="Enter your Name"
+								/>
+							</div>
+							<div>
+								<label for="signup-email" class="form-label">Email Address</label>
+								<input
+									id="signup-email"
+									name="signup-email"
+									class="form-control p-3"
+									type="email"
+									placeholder="Enter your Email Address"
+								/>
+							</div>
+							<div>
+								<label for="signup-password" class="form-label">Password</label>
+								<div class="input-group">
+									<input
+										id="signup-password"
+										name="signup-password"
+										class="form-control p-3"
+										type="password"
+										placeholder="Enter your Password"
+									/>
+									<button
+										type="button"
+										class="input-group-text"
+										onclick="togglePasswordVisibility('signup-password')"
+									>
+										<i class="fa-regular fa-eye"></i>
+									</button>
+								</div>
+							</div>
+							<div>
+								<label for="signup-confirm-password" class="form-label">Confirm Password</label>
+								<div class="input-group">
+									<input
+										id="signup-confirm-password"
+										name="signup-confirm-password"
+										class="form-control p-3"
+										type="password"
+										placeholder="Confirm your Password"
+									/>
+									<button
+										type="button"
+										class="input-group-text"
+										onclick="togglePasswordVisibility('signup-confirm-password')"
+									>
+										<i class="fa-regular fa-eye"></i>
+									</button>
+								</div>
+							</div>
+							<p id="signup-error" class="text-danger"></p>
+							<button class="btn text-uppercase py-3">Sign up</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<%- include('./components/footer.ejs'); %>
+
+		<script>
+			const signinForm = document.getElementById('signin-form');
+			const signinError = document.getElementById('signin-error');
+
+			signinForm.addEventListener('submit', async function (e) {
+				e.preventDefault();
+				signinError.textContent = '';
+				const username = document.getElementById('signin-username').value.trim();
+				const password = document.getElementById('signin-password').value.trim();
+
+				try {
+					const loginResponse = await fetch('/api/reader/auth/login', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ email: username, password }),
+					});
+
+					if (!loginResponse.ok) {
+						const errorData = await loginResponse.json();
+						signinError.textContent = errorData.message;
+						return;
+					}
+
+					const data = await loginResponse.json();
+					console.log('Login successful:', data);
+
+					// Redirect to the home page or handle success as needed
+					window.location.href = '/';
+				} catch (error) {
+					console.error('Error:', error);
+					signinError.textContent = 'An error occurred while logging in the user.';
+				}
+			});
+
+			const signupForm = document.getElementById('signup-form');
+			const signupError = document.getElementById('signup-error');
+
+			const passwordInput = document.getElementById('signup-password');
+			const confirmPasswordInput = document.getElementById('signup-confirm-password');
+			confirmPasswordInput.addEventListener('blur', function (e) {
+				if (passwordInput.value !== confirmPasswordInput.value) {
+					signupError.textContent = 'Passwords do not match.';
+				} else {
+					signupError.textContent = '';
+				}
+			});
+
+			signupForm.addEventListener('submit', async function (e) {
+				e.preventDefault();
+				if (passwordInput.value !== confirmPasswordInput.value) {
+					signupError.textContent = 'Passwords do not match.';
+				} else {
+					signupError.textContent = '';
+				}
+
+				const fullname = document.getElementById('signup-fullname').value.trim();
+				const email = document.getElementById('signup-email').value.trim();
+				const password = document.getElementById('signup-password').value.trim();
+				const confirmPassword = document.getElementById('signup-confirm-password').value.trim();
+
+				try {
+					const signUpResponse = await fetch('/api/reader/auth/register', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ fullname, email, password }),
+					});
+
+					if (!signUpResponse.ok) {
+						const errorData = await signUpResponse.json();
+						signupError.textContent = errorData.message;
+						return;
+					}
+
+					const data = await signUpResponse.json();
+					console.log('Sign up successful:', data);
+
+					// Redirect to the home page or handle success as needed
+					window.location.href = '/signin';
+				} catch (error) {
+					console.error('Error:', error);
+				}
+			});
+
+			function togglePasswordVisibility(inputId) {
+				const passwordInput = document.getElementById(inputId);
+				if (passwordInput.type === 'password') {
+					passwordInput.type = 'text';
+				} else {
+					passwordInput.type = 'password';
+				}
+			}
+		</script>
+	</body>
+</html>

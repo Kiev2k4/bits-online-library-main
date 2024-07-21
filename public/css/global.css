@@ -1,0 +1,46 @@
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	box-sizing: border-box;
+	vertical-align: baseline;
+	background: transparent;
+	font-family: 'Public Sans', Arial, sans-serif;
+}
+
+h1,
+p {
+	margin: 0;
+}
+
+body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+body > header {
+	background-color: #1b6392;
+	width: 100vw;
+}
+body > header hr {
+	color: white;
+	background-color: white;
+	margin: 0;
+}
+body > header .input-group {
+	max-width: 500px;
+}
+
+body > header #user-dropdown::after {
+	content: none;
+}
+
+body > footer {
+	background-color: #191c1f;
+}
+body > footer hr {
+	color: white;
+	background-color: white;
+	margin: 0;
+}

@@ -1,0 +1,28 @@
+.form-container {
+	width: 100%;
+	max-width: 500px;
+}
+
+.nav {
+	--bs-nav-link-color: gray;
+	--bs-nav-link-hover-color: #000;
+	--bs-nav-link-padding-y: 0.75rem;
+}
+.nav-item {
+	border-bottom: solid gray 1px;
+}
+.nav-underline {
+	--bs-nav-underline-gap: 0;
+	--bs-nav-underline-link-active-color: #fa8232;
+}
+
+form button {
+	--bs-btn-bg: #fa8232 !important;
+	--bs-btn-color: #fff !important;
+	--bs-btn-hover-border-color: #e47429 !important;
+	--bs-btn-hover-bg: #e47429 !important;
+	--bs-btn-hover-color: #fff !important;
+	--bs-btn-active-bg: #e47429 !important;
+	--bs-btn-active-border-color: #e47429 !important;
+	--bs-btn-active-color: #fff !important;
+}

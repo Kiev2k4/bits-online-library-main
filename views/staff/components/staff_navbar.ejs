@@ -1,0 +1,57 @@
+<ul class="sidebar border rounded-2 bg-light py-2 px-0">
+	<li>
+		<a
+			href="/admin/books"
+			class="d-flex gap-3 px-3 py-2 text-decoration-none align-items-center hover"
+		>
+			<i class="fa-solid fa-book mt-1"></i>
+			<div>Books</div>
+		</a>
+	</li>
+	<li>
+		<a
+			href="/admin/categories"
+			class="d-flex gap-3 px-3 py-2 text-decoration-none align-items-center hover"
+		>
+			<i class="fa-solid fa-shapes mt-1"></i>
+			<div>Categories</div>
+		</a>
+	</li>
+	<li>
+		<a
+			href="/admin/resource-types"
+			class="d-flex gap-3 px-3 py-2 text-decoration-none align-items-center hover"
+		>
+			<i class="fa-solid fa-clipboard-list mt-1"></i>
+			<div>Resource Types</div>
+		</a>
+	</li>
+	<li>
+		<a
+			href="/admin/authors"
+			class="d-flex gap-3 px-3 py-2 text-decoration-none align-items-center hover"
+		>
+			<i class="fa-solid fa-user-pen mt-1"></i>
+			<div>Authors</div>
+		</a>
+	</li>
+	<li>
+		<a
+			href="/admin/publishers"
+			class="d-flex gap-3 px-3 py-2 text-decoration-none align-items-center hover"
+		>
+			<i class="fa-solid fa-shop mt-1"></i>
+			<div>Publishers</div>
+		</a>
+	</li>
+</ul>
+<script>
+	const path = window.location.pathname;
+	const links = document.querySelectorAll('a.hover');
+
+	links.forEach((link) => {
+		if (link.getAttribute('href') === path) {
+			link.classList.add('current');
+		}
+	});
+</script>

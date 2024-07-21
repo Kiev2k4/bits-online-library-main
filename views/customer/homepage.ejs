@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1, width=device-width" />
+		<title>TIMR Library</title>
+		<link rel="icon" type="image/x-icon" href="/public/assets/icon1.svg" />
+
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Public Sans:wght@400;500;600;700&display=swap"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://kit.fontawesome.com/090ced38b4.js" crossorigin="anonymous"></script>
+
+		<link rel="stylesheet" href="/public/css/global.css" />
+		<link rel="stylesheet" href="/public/css/homepage.css" />
+	</head>
+	<body>
+		<%- include('./components/header.ejs', { user }); %>
+
+		<div class="container-xxl flex-grow-1">
+			<h2 class="text-center">Browse our Collections</h2>
+
+			<div class="row g-5 mt-4 mb-5">
+				<% books.forEach(function(book) { %>
+				<div class="col-12 col-md-6 col-xl-4 d-flex">
+					<a href="/books/<%= book.id %>" class="card p-3 rounded-0 text-decoration-none">
+						<img class="card-img-top" alt="" src="https://picsum.photos/150/175" />
+
+						<div class="card-body">
+							<h4 class="card-title mb-2"><%= book.title %></h4>
+
+							<div class="d-flex align-items-center gap-3 mb-2">
+								<div class="d-flex align-items-center gap-2">
+									<i class="fa-regular fa-circle-user" style="color: #ebc80c"></i>
+									<p class=""><%= book.authors %></p>
+								</div>
+								<div class="d-flex align-items-center gap-2">
+									<i class="fa-regular fa-calendar" style="color: #ebc80c"></i>
+									<p class=""><%= (new Date(book.publishedDate)).toDateString() %></p>
+								</div>
+							</div>
+
+							<p class="card-text mb-2"><%= book.description %></p>
+
+							<p class="btn btn-warning">
+								Read more
+								<i class="fa-solid fa-arrow-right"></i>
+							</p>
+						</div>
+					</a>
+				</div>
+				<% }) %>
+			</div>
+		</div>
+
+		<div class="newsletter vw-100 d-flex flex-column align-items-center py-5">
+			<h2 class="text-light text-center">Subscribe to our newsletter</h2>
+			<p class="text-light">Subscribe to receive latest books updates from our library</p>
+
+			<form class="input-group input-group-lg pt-5 pb-4">
+				<input type="text" class="form-control rounded-0" placeholder="Email address" />
+				<span class="input-group-text bg-light p-2 border-start-0 rounded-0">
+					<button class="btn btn-warning p-3 rounded-0">
+						Subscribe
+						<i class="ms-1 fa-solid fa-arrow-right"></i>
+					</button>
+				</span>
+			</form>
+		</div>
+
+		<%- include('./components/footer.ejs'); %>
+	</body>
+</html>

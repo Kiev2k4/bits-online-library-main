@@ -1,0 +1,34 @@
+#user-dropdown-toggle::after {
+	content: none;
+}
+.logo-name {
+	font: 700 32px/40px Public Sans, -apple-system, Roboto, Helvetica, sans-serif;
+	color: #fff;
+	align-self: center;
+}
+
+ul.sidebar {
+	list-style-type: none;
+}
+ul.sidebar i {
+	color: rgb(31, 31, 31);
+	width: 20px;
+	text-align: center;
+}
+ul.sidebar div {
+	color: rgb(106, 106, 106);
+}
+/*hover effects and active tab for vertical nav*/
+ul.sidebar .hover:hover {
+	background-color: rgba(var(--bs-emphasis-color-rgb), 0.075);
+}
+ul.sidebar .current {
+	background-color: #fa8232 !important;
+}
+ul.sidebar .current i {
+	color: #fff !important;
+}
+ul.sidebar .current div {
+	color: #fff !important;
+	font-weight: 600;
+}

@@ -1,0 +1,47 @@
+<nav class='d-flex flex-row justify-content-end my-4 w-100'>
+  <ul class='pagination align-items-center gap-2'>
+    <li class='page-item <%- currentPage <= 1 ? 'disabled' : '' %>'>
+      <button class='page-link border-0 rounded-circle py-2' data-page="<%= currentPage - 1 %>" style="width: 2.4rem;">
+        <i class='fas fa-chevron-left'></i>
+      </button>
+    </li>
+    <% if (currentPage > 3 && totalPages > 5) { %>
+      <li class="page-item">
+        <button class='page-link border-0 rounded-circle py-2' style="width: 2.4rem;" data-page="1">1</button>
+      </li>
+      <% if (currentPage > 4) { %><i class='fas fa-ellipsis-h me-2'></i><% } %>
+    <% } %>
+    <% Array.from({ length: Math.min(totalPages, Math.max(currentPage + 2, 5)) - Math.max(1, Math.min(currentPage - 2, totalPages - 4)) + 1 }, (_, i) => i + Math.max(1, Math.min(currentPage - 2, totalPages - 4))).forEach(function (key) { %>
+      <li class="<%- key === currentPage ? 'page-item active' : 'page-item' %>">
+        <button class='page-link border-0 rounded-circle py-2' style="width: 2.4rem;" data-page="<%= key %>">
+          <%= key %>
+        </button>
+      </li>
+    <% }) %>
+    <% if (currentPage < totalPages - 2 && totalPages > 5) { %>
+      <% if (currentPage < totalPages - 3) { %><i class='fas fa-ellipsis-h me-2'></i><% } %>
+      <li class="page-item <%- totalPages === currentPage ? 'active' : '' %>">
+        <button class='page-link border-0 rounded-circle py-2' style="width: 2.4rem;" data-page="<%= totalPages %>">
+          <%= totalPages%>
+        </button>
+      </li>
+    <% } %>
+    <li class='page-item <%- currentPage >= totalPages ? 'disabled' : '' %>'>
+      <button class='page-link border-0 rounded-circle py-2' style="width: 2.4rem;" data-page="<%= currentPage + 1 %>">
+        <i class='fas fa-chevron-right'></i>
+      </button>
+    </li>
+  </ul>
+</nav>
+<script>
+  const paginationUrl = new URL(window.location);
+  const paginationParams = new URLSearchParams(paginationUrl.search);
+
+  const paginationButtons = document.querySelectorAll('button.page-link');
+  paginationButtons.forEach((button) => {
+    button.addEventListener('click', function () {
+      paginationParams.set('page', this.dataset.page);
+      window.location.assign(`${paginationUrl.origin}${paginationUrl.pathname}?${paginationParams.toString()}`);
+    });
+  });
+</script>

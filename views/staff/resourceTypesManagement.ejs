@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Librarian - Resource Types Management</title>
+		<link rel="icon" type="image/x-icon" href="/public/assets/icon1.svg" />
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+		<script src="https://kit.fontawesome.com/090ced38b4.js" crossorigin="anonymous"></script>
+
+		<link rel="stylesheet" href="/public/css/staff_global.css" />
+		<link rel="stylesheet" href="/public/css/resourceTypesManagement.css" />
+	</head>
+	<body>
+		<!--Add Modal-->
+		<div
+			class="modal fade"
+			id="addResourceType"
+			tabindex="-1"
+			aria-labelledby="addResourceTypeLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="addResourceTypeLabel">Add a resource type</h1>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<form id="addResourceTypeForm" class="modal-body">
+						<div class="mb-3 row">
+							<label for="inputResourceTypeName" class="col-sm-3 col-form-label">Type Name: </label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="inputResourceTypeName" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Save changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--End of Add Modal-->
+		<!--Edit Modal-->
+		<div
+			class="modal fade"
+			id="editResourceType"
+			tabindex="-1"
+			aria-labelledby="editResourceTypeLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="editResourceTypeLabel">Edit resource type</h1>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<form id="editResourceTypeForm" class="modal-body">
+						<div class="mb-3 row">
+							<label for="editResourceTypeName" class="col-sm-3 col-form-label">Type Name: </label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="editResourceTypeName" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Save changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--End of Edit Modal-->
+		<!--Delete Modal-->
+		<div
+			class="modal"
+			id="deleteResourceType"
+			tabindex="-1"
+			aria-labelledby="deleteResourceTypeLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Delete resource type</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<form id="deleteResourceTypeForm" class="modal-body">
+						<p>Are you sure you want to delete this resource type ?</p>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-danger">Confirm</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--End of Delete Modal-->
+		<%- include('./components/staff_header.ejs') %>
+
+		<div class="div-6">
+			<div class="container-xxl d-flex align-items-center gap-2">
+				<a class="breadCrumbs" href="/admin/books"><i class="fa-solid fa-house"></i></a>
+				<a class="breadCrumbs" href="/admin/books">Home</a>
+				<i class="fa-solid fa-chevron-right text-secondary"></i>
+				<div class="breadCrumbs">Resource Types Management</div>
+			</div>
+		</div>
+		<div class="container-xxl my-5">
+			<div class="row gx-5">
+				<nav class="col-3"><%- include('./components/staff_navbar.ejs') %></nav>
+				<div class="col-9">
+					<div class="div-21">
+						<div class="div-22">Manage Resource Types</div>
+						<div class="div-23">
+							<form id="searchForm" class="input-group searchBarTable">
+								<input
+									type="text"
+									id="searchInput"
+									class="form-control"
+									placeholder="Search for resource types..."
+									aria-label="Search"
+									aria-describedby="basic-addon1"
+								/>
+								<button title="Search" type="submit" class="input-group-text" id="searchBarButton">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
+							</form>
+							<select
+								name="sort-select"
+								id="sort-select"
+								class="form-select w-auto"
+								aria-label="Sort by"
+							>
+								<option selected>Sort by:</option>
+								<option value="0">Alphabet</option>
+								<option value="1">Latest</option>
+								<option value="2">Oldest</option>
+							</select>
+							<button
+								type="button"
+								class="btn btn-outline-secondary d-flex text-nowrap gap-2 align-items-center"
+								data-bs-toggle="modal"
+								data-bs-target="#addResourceType"
+							>
+								<i class="fa-solid fa-plus"></i>
+								NEW TYPE
+							</button>
+						</div>
+						<table class="table table-hover table-responsive">
+							<thead>
+								<tr>
+									<th scope="col">Type name</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% resourceTypes.forEach(resourceType => { %>
+								<tr>
+									<td><%= resourceType.name %></td>
+									<td>
+										<button
+											class="deleteButton bg-transparent border-0"
+											data-resource-type-id="<%= resourceType.id %>"
+											data-bs-toggle="modal"
+											data-bs-target="#deleteResourceType"
+										>
+											<i class="fa-solid fa-trash"></i>
+										</button>
+										<button
+											class="editButton bg-transparent border-0"
+											data-resource-type-id="<%= resourceType.id %>"
+											data-resource-types-name="<%= resourceType.name %>"
+											data-bs-toggle="modal"
+											data-bs-target="#editResourceType"
+										>
+											<i class="fa-solid fa-pen-to-square"></i>
+										</button>
+									</td>
+								</tr>
+								<% }) %>
+							</tbody>
+						</table>
+						<%- include('../customer/components/pagination.ejs', { totalItems, totalPages,
+						currentPage }) %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
+		<script src="/public/js/resourceTypesManagement.js"></script>
+	</body>
+</html>
